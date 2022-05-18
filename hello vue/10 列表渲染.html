@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  </head>
+  <style>
+    p.active {
+      color: red;
+    }
+  </style>
+  <body>
+    <id id="app10">
+      <div>
+        <div v-for="item in list" :key="item.message">{{ item.message }}</div>
+      </div>
+
+      <div>
+        <div v-for="(item, index) in list" :key="item.message">
+          {{ item.message }} + {{ index }}
+        </div>
+      </div>
+
+      <div>
+        <div v-for="item of list" :key="item.message">
+          {{ item.message + "index" }}
+        </div>
+      </div>
+
+      <div>
+        <div v-for="value in object" :key="value">{{ value }}</div>
+      </div>
+
+      <div>
+        <div v-for="(value, name, idx) in object" :key="value">
+          {{ value }} : {{ name }} : {{ idx }}
+        </div>
+      </div>
+    </id>
+
+    <script>
+      var vm = new Vue({
+        el: '#app10',
+        data: {
+          list: [
+            { message: 'info1' },
+            { message: 'info2' },
+            { message: 'info3' },
+          ],
+          object: {
+            title: 'How to do lists in Vue',
+            author: 'Jane Doe',
+            publishedAt: '2016-04-10',
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

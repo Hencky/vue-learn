@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  </head>
+  <body>
+    <id id="app">
+      <p>Original message: "{{ message }}"</p>
+      <p>Computed reversed message: "{{ reversedMessage }}"</p>
+    </id>
+
+    <script>
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello',
+          firstName: 'John',
+          lastName: 'Doe',
+        },
+        // 计算属性，依赖的属性变化时候，该属性会被重新计算
+        computed: {
+          reversedMessage: function () {
+            return this.message.split('').reverse().join('');
+          },
+        },
+        // 响应数据变化，一般用于 数据变化时执行异步或开销比较大的操作
+        watch: {
+          fullName: function () {
+            return this.firstName + ' ' + this.lastName;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

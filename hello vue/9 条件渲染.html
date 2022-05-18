@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  </head>
+  <style>
+    p.active {
+      color: red;
+    }
+  </style>
+  <body>
+    <id id="app">
+      <div v-if="Math.random() > 0.5">a</div>
+      <div v-else>其他</div>
+
+      <template v-if="Math.random() > 0.5">
+        <div>整组都不显示1</div>
+        <div>整组都不显示2</div>
+      </template>
+      <template v-else-if="Math.random() > 0.5"><div>elseif</div></template>
+      <template v-else><div>else</div></template>
+
+      <template v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username" />
+      </template>
+      <template v-else>
+        <label>Email</label>
+        <input placeholder="Enter your email address" />
+      </template>
+
+      <button @click="toggleLoginType">切换状态</button>
+
+      <div>
+        <div v-show="show">是否显示</div>
+        <button @click="toggleShow">close</button>
+      </div>
+    </id>
+
+    <script>
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          isActive: true,
+          activeColor: 'green',
+          loginType: 'username',
+          show: true,
+        },
+        computed: {
+          classObj: function () {
+            return {
+              active: this.isActive,
+            };
+          },
+        },
+        methods: {
+          toggleLoginType: function () {
+            this.loginType =
+              this.loginType === 'username' ? 'email' : 'username';
+          },
+          toggleShow: function () {
+            this.show = !this.show;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

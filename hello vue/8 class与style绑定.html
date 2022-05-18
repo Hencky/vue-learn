@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  </head>
+  <style>
+    p.active {
+      color: red;
+    }
+  </style>
+
+  <body>
+    <id id="app">
+      <p :class="{ active: isActive }">样式</p>
+      <p :class="classObj">计算属性样式</p>
+      <p :style="{ color: activeColor }">内联样式</p>
+    </id>
+
+    <script>
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          isActive: true,
+          activeColor: 'green',
+        },
+        computed: {
+          classObj: function () {
+            return {
+              active: this.isActive,
+            };
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
