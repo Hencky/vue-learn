@@ -21,10 +21,25 @@
         <blog-post title="My journey with Vue3"></blog-post>
       </div>
 
-
-      <div>
-        <blog-post v-for="item in posts" :title="item.title" :key="item.id"></blog-post>
+      <div :style="{ fontSize: postFontSize + 'em' }">
+        <blog-post
+          v-for="item in posts"
+          :title="item.title"
+          :key="item.id"
+          @enlarge-text="postFontSize += 0.1"
+        />
       </div>
+
+      <div :style="{ fontSize: postFontSize + 'em' }">
+        <blog-post2
+          v-for="item in posts"
+          :title="item.title"
+          :key="item.id"
+          @enlarge-text="onEnlargeText"
+        />
+      </div>
+
+      <div>{{ postFontSize }}</div>
     </div>
 
     <script>
@@ -35,12 +50,29 @@
           };
         },
         template:
-          '<button v-on:click="count++">You clicked me {{ count }} times.</button>',
+          '<button @click="count++">You clicked me {{ count }} times.</button>',
       });
 
       Vue.component('blog-post', {
-        props: ['title'],
-        template: '<h3>{{ title }}</h3>',
+        props: ['title', 'content', 'enlarge-text'],
+        template: `<div>
+          <h3>{{ title }}</h3>
+          <button @click="$emit('enlarge-text')">
+            Enlarge text
+          </button>
+          <div v-html="content"></div>
+        </div>`,
+      });
+
+      Vue.component('blog-post2', {
+        props: ['title', 'content', 'enlarge-text'],
+        template: `<div>
+          <h3>{{ title }}</h3>
+          <button @click="$emit('enlarge-text', 0.1)">
+            Enlarge text
+          </button>
+          <div v-html="content"></div>
+        </div>`,
       });
 
       var app = new Vue({
@@ -49,11 +81,17 @@
           message: 'Hello Vue!',
           checked: false,
           checkedNames: [],
+          postFontSize: 0.1,
           posts: [
-            { id: 1, title: 'vue1' },
-            { id: 2, title: 'vue2' },
-            { id: 3, title: 'vue3' },
+            { id: 1, title: 'vue1', content: `<div>abc</div>` },
+            { id: 2, title: 'vue2', content: `<div>abc</div>` },
+            { id: 3, title: 'vue3', content: `<div>abc</div>` },
           ],
+        },
+        methods: {
+          onEnlargeText: function (enlargeAmount) {
+            this.postFontSize += enlargeAmount;
+          },
         },
       });
     </script>
